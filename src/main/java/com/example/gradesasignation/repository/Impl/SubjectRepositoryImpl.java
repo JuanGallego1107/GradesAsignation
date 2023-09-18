@@ -1,14 +1,12 @@
-package org.example.repository.Impl;
+package com.example.gradesasignation.repository.Impl;
 
-import org.example.conexion.ConexionBD;
-import org.example.domain.models.Grades;
-import org.example.domain.models.Student;
-import org.example.domain.models.Subject;
-import org.example.domain.models.Teacher;
-import org.example.mapper.dtos.SubjectDto;
-import org.example.mapper.mappers.GradesMapper;
-import org.example.mapper.mappers.SubjectMapper;
-import org.example.repository.SubjectRepository;
+
+import com.example.gradesasignation.conexion.ConexionBD;
+import com.example.gradesasignation.domain.models.Subject;
+import com.example.gradesasignation.domain.models.Teacher;
+import com.example.gradesasignation.mapper.dtos.SubjectDto;
+import com.example.gradesasignation.mapper.mappers.SubjectMapper;
+import com.example.gradesasignation.repository.SubjectRepository;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,12 +1,12 @@
-package org.example.repository.Impl;
+package com.example.gradesasignation.repository.Impl;
 
-import org.example.conexion.ConexionBD;
-import org.example.domain.models.Student;
-import org.example.domain.models.Teacher;
-import org.example.mapper.dtos.TeacherDto;
-import org.example.mapper.mappers.StudentMapper;
-import org.example.mapper.mappers.TeacherMapper;
-import org.example.repository.TeacherRepository;
+
+
+import com.example.gradesasignation.conexion.ConexionBD;
+import com.example.gradesasignation.domain.models.Teacher;
+import com.example.gradesasignation.mapper.dtos.TeacherDto;
+import com.example.gradesasignation.mapper.mappers.TeacherMapper;
+import com.example.gradesasignation.repository.TeacherRepository;
 
 import java.sql.*;
 import java.util.ArrayList;

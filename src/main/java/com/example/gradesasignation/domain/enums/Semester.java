@@ -1,4 +1,4 @@
-package org.example.domain.enums;
+package com.example.gradesasignation.domain.enums;
 
 public enum Semester {
     I,

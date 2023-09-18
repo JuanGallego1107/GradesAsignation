@@ -1,8 +1,7 @@
-package org.example.mapper.dtos;
+package com.example.gradesasignation.mapper.dtos;
 
-import org.example.domain.models.Teacher;
+import com.example.gradesasignation.domain.models.Teacher;
 import lombok.Builder;
-import lombok.Data;
 
 @Builder
 public record SubjectDto (

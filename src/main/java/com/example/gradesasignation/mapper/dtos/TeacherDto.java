@@ -1,4 +1,4 @@
-package org.example.mapper.dtos;
+package com.example.gradesasignation.mapper.dtos;
 
 public record TeacherDto (
         Long teacherId,

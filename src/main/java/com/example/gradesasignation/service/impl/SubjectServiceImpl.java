@@ -1,14 +1,22 @@
-package org.example.service.impl;
+package com.example.gradesasignation.service.impl;
 
-import org.example.mapper.dtos.SubjectDto;
-import org.example.repository.Impl.SubjectRepositoryImpl;
-import org.example.repository.SubjectRepository;
-import org.example.service.SubjectService;
+
+
+import com.example.gradesasignation.mapper.dtos.SubjectDto;
+import com.example.gradesasignation.repository.Impl.SubjectRepositoryImpl;
+import com.example.gradesasignation.repository.Impl.SubjectRepositoryLogicImpl;
+import com.example.gradesasignation.repository.Impl.TeacherRepositoryLogicImpl;
+import com.example.gradesasignation.repository.SubjectRepository;
+import com.example.gradesasignation.service.SubjectService;
 
 import java.util.List;
 
 public class SubjectServiceImpl implements SubjectService {
-    SubjectRepository repo = new SubjectRepositoryImpl();
+    private final SubjectRepositoryLogicImpl repo;
+
+    public SubjectServiceImpl(SubjectRepositoryLogicImpl repo) {
+        this.repo = repo;
+    }
 
     @Override
     public List<SubjectDto> subjectList() {

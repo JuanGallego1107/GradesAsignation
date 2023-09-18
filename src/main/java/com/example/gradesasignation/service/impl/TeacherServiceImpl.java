@@ -1,15 +1,22 @@
-package org.example.service.impl;
+package com.example.gradesasignation.service.impl;
 
-import org.example.mapper.dtos.TeacherDto;
-import org.example.repository.Impl.TeacherRepositoryImpl;
-import org.example.repository.TeacherRepository;
-import org.example.service.TeacherService;
+
+
+import com.example.gradesasignation.mapper.dtos.TeacherDto;
+import com.example.gradesasignation.repository.Impl.TeacherRepositoryImpl;
+import com.example.gradesasignation.repository.Impl.TeacherRepositoryLogicImpl;
+import com.example.gradesasignation.repository.TeacherRepository;
+import com.example.gradesasignation.service.TeacherService;
 
 import java.util.List;
 
 public class TeacherServiceImpl implements TeacherService {
 
-    TeacherRepository repo =  new TeacherRepositoryImpl();
+    private final TeacherRepositoryLogicImpl repo;
+
+    public TeacherServiceImpl(TeacherRepositoryLogicImpl repo){
+        this.repo = repo;
+    }
     @Override
     public List<TeacherDto> teacherList() {
         return repo.teacherList();

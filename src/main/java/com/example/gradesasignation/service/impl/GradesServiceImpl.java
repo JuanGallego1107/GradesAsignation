@@ -1,9 +1,11 @@
-package org.example.service.impl;
+package com.example.gradesasignation.service.impl;
 
-import org.example.mapper.dtos.GradesDto;
-import org.example.repository.GradesRepository;
-import org.example.repository.Impl.GradesRepositoryImpl;
-import org.example.service.GradesService;
+
+
+import com.example.gradesasignation.mapper.dtos.GradesDto;
+import com.example.gradesasignation.repository.GradesRepository;
+import com.example.gradesasignation.repository.Impl.GradesRepositoryImpl;
+import com.example.gradesasignation.service.GradesService;
 
 import java.util.List;
 

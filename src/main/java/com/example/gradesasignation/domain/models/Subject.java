@@ -1,8 +1,4 @@
-package org.example.domain.models;
-
-import org.example.domain.enums.Semester;
-
-import java.util.List;
+package com.example.gradesasignation.domain.models;
 
 public class Subject {
     private Long id;

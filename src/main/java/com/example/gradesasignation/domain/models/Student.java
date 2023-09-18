@@ -1,4 +1,4 @@
-package org.example.domain.models;
+package com.example.gradesasignation.domain.models;
 
 public class Student {
     private Long id;

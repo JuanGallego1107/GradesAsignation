@@ -1,9 +1,9 @@
-package org.example.mapper.mappers;
+package com.example.gradesasignation.mapper.mappers;
 
-import org.example.domain.models.Student;
-import org.example.domain.models.Teacher;
-import org.example.mapper.dtos.StudentDto;
-import org.example.mapper.dtos.TeacherDto;
+
+
+import com.example.gradesasignation.domain.models.Teacher;
+import com.example.gradesasignation.mapper.dtos.TeacherDto;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package org.example.repository;
+package com.example.gradesasignation.repository;
 
-import org.example.domain.models.Teacher;
-import org.example.mapper.dtos.SubjectDto;
-import org.example.mapper.dtos.TeacherDto;
+
+
+import com.example.gradesasignation.mapper.dtos.TeacherDto;
 
 import java.util.List;
 

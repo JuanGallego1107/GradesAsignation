@@ -1,4 +1,4 @@
-package org.example.conexion;
+package com.example.gradesasignation.conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

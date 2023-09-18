@@ -1,6 +1,7 @@
-package org.example.service;
+package com.example.gradesasignation.service;
 
-import org.example.mapper.dtos.SubjectDto;
+
+import com.example.gradesasignation.mapper.dtos.SubjectDto;
 
 import java.util.List;
 

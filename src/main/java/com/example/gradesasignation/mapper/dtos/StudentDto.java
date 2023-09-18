@@ -1,4 +1,5 @@
-package org.example.mapper.dtos;
+package com.example.gradesasignation.mapper.dtos;
+
 
 public record StudentDto(
         Long studentId,
@@ -6,4 +7,5 @@ public record StudentDto(
         String studentEmail,
         String degree,
         String semester) {
+
 }
