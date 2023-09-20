@@ -24,6 +24,7 @@
             <input type="submit" value="Enviar" class="btn btn-primary">
         </div>
     </div>
+    </div>
 </form>
 <br/>
 <a href="student-form">Vamos a StudentController</a>
