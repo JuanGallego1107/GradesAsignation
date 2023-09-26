@@ -8,14 +8,16 @@ import com.example.gradesasignation.repository.Impl.TeacherRepositoryLogicImpl;
 import com.example.gradesasignation.repository.TeacherRepository;
 import com.example.gradesasignation.service.TeacherService;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class TeacherServiceImpl implements TeacherService {
 
-    private final TeacherRepositoryLogicImpl repo;
+    private TeacherRepository repo;
 
-    public TeacherServiceImpl(TeacherRepositoryLogicImpl repo){
-        this.repo = repo;
+    public TeacherServiceImpl(Connection conn){
+        this.repo = new TeacherRepositoryImpl();
     }
     @Override
     public List<TeacherDto> teacherList() {

@@ -2,18 +2,18 @@
   Created by IntelliJ IDEA.
   User: galle
   Date: 24/09/2023
-  Time: 12:44 p. m.
+  Time: 5:27 p. m.
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>LoginList</title>
 </head>
 <body>
-<h3><%= "Login" %>
+<h3><%= "Login para la lista" %>
 </h3>
-<form action="login" method="post">
+<form action="loginlist" method="post">
     <div>
         <label for="username">Username</label>
         <div>

@@ -2,7 +2,7 @@ package com.example.gradesasignation.repository.Impl;
 
 
 
-import com.example.gradesasignation.conexion.ConexionBD;
+import com.example.gradesasignation.exceptions.ServiceJdbcException;
 import com.example.gradesasignation.domain.models.Student;
 import com.example.gradesasignation.mapper.dtos.StudentDto;
 import com.example.gradesasignation.mapper.mappers.StudentMapper;
@@ -14,9 +14,12 @@ import java.util.List;
 
 public class StudentRepositoryImpl implements StudentRepository {
 
-    private Connection getConnection() throws SQLException {
-        return ConexionBD.getInstance();
+    private Connection conn;
+
+    public StudentRepositoryImpl(Connection conn) {
+        this.conn = conn;
     }
+
     private Student createStudent(ResultSet rs) throws SQLException {
         Student student = new Student();
         student.setId(rs.getLong("id"));
@@ -30,14 +33,15 @@ public class StudentRepositoryImpl implements StudentRepository {
     public List<StudentDto> studentList() {
         List<Student> studentList = new ArrayList<>();
 
-        try (Statement statement = getConnection().createStatement();
+        try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * from students")) {
             while (resultSet.next()) {
                 Student student = createStudent(resultSet);
                 studentList.add(student);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throw new ServiceJdbcException(throwables.getMessage(),
+                    throwables.getCause());
         }
         return StudentMapper.mapFrom(studentList);
     }
@@ -45,7 +49,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     @Override
     public StudentDto byId(Long id) {
         Student student = null;
-        try (PreparedStatement preparedStatement = getConnection()
+        try (PreparedStatement preparedStatement = conn
                 .prepareStatement("SELECT * FROM students WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -53,8 +57,9 @@ public class StudentRepositoryImpl implements StudentRepository {
                 student = createStudent(resultSet);
             }
             resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throw new ServiceJdbcException(throwables.getMessage(),
+                    throwables.getCause());
         }
         return StudentMapper.mapFrom(student);
     }
@@ -67,7 +72,7 @@ public class StudentRepositoryImpl implements StudentRepository {
         } else {
             sql = "INSERT INTO students (name, email, degree, semester) VALUES(?,?,?,?)";
         }
-        try(PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, student.studentName());
             stmt.setString(2, student.studentEmail());
             stmt.setString(3, student.degree());
@@ -80,18 +85,20 @@ public class StudentRepositoryImpl implements StudentRepository {
             }
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throw new ServiceJdbcException(throwables.getMessage(),
+                    throwables.getCause());
         }
     }
 
     @Override
     public void delete(Long id) {
-        try(PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM students WHERE id =?")){
+        try(PreparedStatement stmt = conn.prepareStatement("DELETE FROM students WHERE id =?")){
             stmt.setLong(1, id);
             stmt.executeUpdate();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            throw new ServiceJdbcException(throwables.getMessage(),
+                    throwables.getCause());
         }
-    }
+        }
 }

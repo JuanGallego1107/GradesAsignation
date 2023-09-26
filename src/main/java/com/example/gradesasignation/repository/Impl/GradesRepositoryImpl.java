@@ -2,7 +2,7 @@ package com.example.gradesasignation.repository.Impl;
 
 
 
-import com.example.gradesasignation.conexion.ConexionBD;
+import com.example.gradesasignation.utils.ConexionBD;
 import com.example.gradesasignation.domain.models.Grades;
 import com.example.gradesasignation.domain.models.Student;
 import com.example.gradesasignation.domain.models.Subject;
@@ -17,9 +17,10 @@ import java.util.List;
 
 public class GradesRepositoryImpl implements GradesRepository {
 
+    private Connection conn;
 
-    private Connection getConnection() throws SQLException {
-        return ConexionBD.getInstance();
+    public GradesRepositoryImpl(Connection conn) {
+        this.conn = conn;
     }
     private Grades createGrades(ResultSet rs) throws SQLException {
         Grades grades = new Grades();
@@ -53,7 +54,7 @@ public class GradesRepositoryImpl implements GradesRepository {
     public List<GradesDto> gradesList() {
         List<Grades> gradestList = new ArrayList<>();
 
-        try (Statement statement = getConnection().createStatement();
+        try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT gr.*," +
                      "       st.id AS student_id," +
                      "       st.name AS student_name," +
@@ -82,7 +83,7 @@ public class GradesRepositoryImpl implements GradesRepository {
     @Override
     public GradesDto byId(Long id) {
         Grades grades = null;
-        try (PreparedStatement preparedStatement = getConnection()
+        try (PreparedStatement preparedStatement = conn
                 .prepareStatement("SELECT gr.*," +
                         "       st.id AS student_id," +
                         "       st.name AS student_name," +
@@ -119,7 +120,7 @@ public class GradesRepositoryImpl implements GradesRepository {
         } else {
             sql = "INSERT INTO grades(grade, corte) VALUES(?,?)";
         }
-        try(PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDouble(1, grades.grade());
 
             if (grades.gradesId() != null && grades.gradesId()>0) {
@@ -136,7 +137,7 @@ public class GradesRepositoryImpl implements GradesRepository {
 
     @Override
     public void delete(Long id) {
-        try(PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM grades WHERE id =?")){
+        try(PreparedStatement stmt = conn.prepareStatement("DELETE FROM grades WHERE id =?")){
             stmt.setLong(1, id);
             stmt.executeUpdate();
         } catch (SQLException throwables) {

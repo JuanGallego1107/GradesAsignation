@@ -1,4 +1,4 @@
-package com.example.gradesasignation.controllers;
+package com.example.gradesasignation.controllers.ejemplos;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

@@ -30,6 +30,6 @@
   </div>
 </form>
 <br/>
-<a href="teacher-form">Vamos a TeacherController</a>
+<a href="teacher-form">Vamos a Listar profesores</a>
 </body>
 </html>

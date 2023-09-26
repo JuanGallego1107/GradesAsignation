@@ -7,14 +7,15 @@ import com.example.gradesasignation.repository.Impl.StudentRepositoryLogicImpl;
 import com.example.gradesasignation.repository.StudentRepository;
 import com.example.gradesasignation.service.StudentService;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class StudentServiceImpl implements StudentService {
 
-    private final StudentRepositoryLogicImpl repo;
+    private StudentRepository repo;
 
-    public StudentServiceImpl(StudentRepositoryLogicImpl repo) {
-        this.repo = repo;
+    public StudentServiceImpl(Connection connection) {
+        this.repo = new StudentRepositoryImpl(connection);
     }
 
     @Override

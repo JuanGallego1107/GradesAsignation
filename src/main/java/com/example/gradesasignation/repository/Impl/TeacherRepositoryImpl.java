@@ -2,7 +2,8 @@ package com.example.gradesasignation.repository.Impl;
 
 
 
-import com.example.gradesasignation.conexion.ConexionBD;
+import com.example.gradesasignation.exceptions.ServiceJdbcException;
+import com.example.gradesasignation.utils.ConexionBD;
 import com.example.gradesasignation.domain.models.Teacher;
 import com.example.gradesasignation.mapper.dtos.TeacherDto;
 import com.example.gradesasignation.mapper.mappers.TeacherMapper;
@@ -13,9 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherRepositoryImpl implements TeacherRepository {
-    private Connection getConnection() throws SQLException {
+
+    private Connection getConnection() throws SQLException, ClassNotFoundException {
         return ConexionBD.getInstance();
     }
+
+
+
     private Teacher createTeacher(ResultSet rs) throws SQLException {
         Teacher teacher = new Teacher();
         teacher.setId(rs.getLong("id"));
@@ -33,8 +38,9 @@ public class TeacherRepositoryImpl implements TeacherRepository {
                 Teacher teacher = createTeacher(resultSet);
                 teacherList.add(teacher);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throw new ServiceJdbcException(throwables.getMessage(),
+                    throwables.getCause());
         }
         return TeacherMapper.mapFrom(teacherList);
     }
@@ -50,8 +56,9 @@ public class TeacherRepositoryImpl implements TeacherRepository {
                 teacher = createTeacher(resultSet);
             }
             resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throw new ServiceJdbcException(throwables.getMessage(),
+                    throwables.getCause());
         }
         return TeacherMapper.mapFrom(teacher);
     }
@@ -75,8 +82,9 @@ public class TeacherRepositoryImpl implements TeacherRepository {
             }
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throw new ServiceJdbcException(throwables.getMessage(),
+                    throwables.getCause());
         }
     }
 
@@ -85,8 +93,9 @@ public class TeacherRepositoryImpl implements TeacherRepository {
         try(PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM teachers WHERE id =?")){
             stmt.setLong(1, id);
             stmt.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throw new ServiceJdbcException(throwables.getMessage(),
+                    throwables.getCause());
         }
     }
 }

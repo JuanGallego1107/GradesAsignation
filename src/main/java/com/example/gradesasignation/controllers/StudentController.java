@@ -2,6 +2,7 @@ package com.example.gradesasignation.controllers;
 
 import com.example.gradesasignation.domain.models.Student;
 import com.example.gradesasignation.mapper.dtos.StudentDto;
+import com.example.gradesasignation.repository.Impl.StudentRepositoryImpl;
 import com.example.gradesasignation.repository.Impl.StudentRepositoryLogicImpl;
 import com.example.gradesasignation.service.StudentService;
 import com.example.gradesasignation.service.impl.StudentServiceImpl;
@@ -12,18 +13,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 @WebServlet(name = "studentController", value = "/student-form")
 public class StudentController extends HttpServlet {
-
-    private StudentRepositoryLogicImpl studentRepository;
-    private StudentService service;
-
-    public StudentController(){
-        studentRepository = new StudentRepositoryLogicImpl();
-        service = new StudentServiceImpl(studentRepository);
-    }
 
     private String message;
 
@@ -34,6 +28,8 @@ public class StudentController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
+        Connection conn = (Connection) request.getAttribute("conn");
+        StudentService service = new StudentServiceImpl(conn);
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("h1>Students</h1>");
@@ -43,13 +39,13 @@ public class StudentController extends HttpServlet {
 
     protected  void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
-
+        Connection conn = (Connection) req.getAttribute("conn");
+        StudentServiceImpl service = new StudentServiceImpl(conn);
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String degree = req.getParameter("degree");
         String semester = req.getParameter("semester");
-        StudentDto student = new StudentDto(4L,name,email,degree,semester);
-        service.update(student);
+        service.update(new StudentDto(2L,name,email,degree,semester));
         System.out.println(service.studentList());
 
         try(PrintWriter out = resp.getWriter()) {

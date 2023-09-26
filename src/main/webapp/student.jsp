@@ -39,6 +39,6 @@
     </div>
 </form>
 <br/>
-<a href="student-form">Vamos a StudentController</a>
+<a href="student-form">Vamos a listar estudiantes</a>
 </body>
 </html>

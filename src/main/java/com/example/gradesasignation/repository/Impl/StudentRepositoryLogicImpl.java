@@ -15,8 +15,8 @@ public class StudentRepositoryLogicImpl implements StudentRepository {
 
     public StudentRepositoryLogicImpl() {
         Student s1 = new Student(1L,"Andrea","andre@gmail.com","Enfermeria","II");
-        Student s2 = new Student(2L,"Andrea","andre@gmail.com","Enfermeria","II");
-        Student s3 = new Student(3L,"Andrea","andre@gmail.com","Enfermeria","II");
+        Student s2 = new Student(2L,",Maria","mar@gmail.com","Medicina","III");
+        Student s3 = new Student(3L,"Camilo","cami@gmail.com","Veterinaria","IV");
         students = new ArrayList<>(List.of(s1,s2,s3));
     }
 
@@ -28,7 +28,7 @@ public class StudentRepositoryLogicImpl implements StudentRepository {
     @Override
     public StudentDto byId(Long id) {
         return students.stream()
-                .filter(e->e.getId().equals(e.getId()))
+                .filter(student -> student.getId().equals(id))
                 .findFirst()
                 .map(StudentMapper::mapFrom)
                 .orElseThrow(()-> new UniversityException("Student not found"));

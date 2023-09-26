@@ -2,6 +2,7 @@ package com.example.gradesasignation.controllers;
 
 import com.example.gradesasignation.domain.models.Student;
 import com.example.gradesasignation.mapper.dtos.StudentDto;
+import com.example.gradesasignation.repository.Impl.StudentRepositoryImpl;
 import com.example.gradesasignation.repository.Impl.StudentRepositoryLogicImpl;
 import com.example.gradesasignation.service.StudentService;
 import com.example.gradesasignation.service.impl.StudentServiceImpl;
@@ -15,17 +16,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.List;
 
 @WebServlet(value="/student.json")
 public class StudentJson extends HttpServlet {
-    private StudentRepositoryLogicImpl studentRepository;
-    private StudentService service;
-
-    public StudentJson(){
-        studentRepository = new StudentRepositoryLogicImpl();
-        service = new StudentServiceImpl(studentRepository);
-    }
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws
             ServletException, IOException {
         ServletInputStream jsonStream = req.getInputStream();
@@ -37,16 +32,16 @@ public class StudentJson extends HttpServlet {
             out.println("<html>");
             out.println(" <head>");
             out.println(" <meta charset=\"UTF-8\">");
-            out.println(" <title>Detalle de producto desde json</title>");
+            out.println(" <title>Detalle de estudiante desde json</title>");
             out.println(" </head>");
             out.println(" <body>");
-            out.println(" <h1>Detalle de producto desde json!</h1>");
+            out.println(" <h1>Detalle de estudiante desde json!</h1>");
             out.println("<ul>");
             out.println("<li>Id: "+ student.studentId() + "</li>");
             out.println("<li>Nombre: " + student.studentName() + "</li>");
-            out.println("<li>Tipo: " + student.studentEmail() + "</li>");
-            out.println("<li>Precio: " + student.degree() + "</li>");
-            out.println("<li>Precio: " + student.semester() + "</li>");
+            out.println("<li>Email: " + student.studentEmail() + "</li>");
+            out.println("<li>Degree: " + student.degree() + "</li>");
+            out.println("<li>Semester: " + student.semester() + "</li>");
             out.println("</ul>");
             out.println(" </body>");
             out.println("</html>");
@@ -55,6 +50,8 @@ public class StudentJson extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
+        Connection conn = (Connection) req.getAttribute("conn");
+        StudentService service = new StudentServiceImpl(conn);
         List<StudentDto> students = service.studentList();
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(students);

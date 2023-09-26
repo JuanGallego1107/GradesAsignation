@@ -1,7 +1,7 @@
 package com.example.gradesasignation.repository.Impl;
 
 
-import com.example.gradesasignation.conexion.ConexionBD;
+import com.example.gradesasignation.utils.ConexionBD;
 import com.example.gradesasignation.domain.models.Subject;
 import com.example.gradesasignation.domain.models.Teacher;
 import com.example.gradesasignation.mapper.dtos.SubjectDto;
@@ -13,9 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectRepositoryImpl implements SubjectRepository {
-    private Connection getConnection() throws SQLException {
-        return ConexionBD.getInstance();
+
+    private Connection conn;
+
+    public  SubjectRepositoryImpl(Connection conn) {
+        this.conn = conn;
     }
+
     private Subject createSubject(ResultSet rs) throws SQLException {
         Subject subject = new Subject();
         subject.setId(rs.getLong("id"));
@@ -34,7 +38,7 @@ public class SubjectRepositoryImpl implements SubjectRepository {
     public List<SubjectDto> subjectList() {
         List<Subject> subjectList = new ArrayList<>();
 
-        try (Statement statement = getConnection().createStatement();
+        try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT sb.*, th.name as teacher_name, th.email " +
                      "FROM subjects sb " +
                      "JOIN teachers th ON sb.teacher_id = th.id ;" )) {
@@ -51,7 +55,7 @@ public class SubjectRepositoryImpl implements SubjectRepository {
     @Override
     public SubjectDto byId(Long id) {
         Subject subject = null;
-        try (PreparedStatement preparedStatement = getConnection()
+        try (PreparedStatement preparedStatement = conn
                 .prepareStatement("SELECT sb.*, th.name as teacher_name, th.email " +
                         "FROM subjects sb " +
                         "JOIN teachers th ON sb.teacher_id = th.id " +
@@ -76,7 +80,7 @@ public class SubjectRepositoryImpl implements SubjectRepository {
         } else {
             sql = "INSERT INTO subjects(name) VALUES(?)";
         }
-        try(PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             if (subject.subjectId() != null && subject.subjectId()>0) {
                 stmt.setString(1, subject.subjectName());
@@ -92,7 +96,7 @@ public class SubjectRepositoryImpl implements SubjectRepository {
     }
     @Override
     public void delete(Long id) {
-        try(PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM subjects WHERE id =?")){
+        try(PreparedStatement stmt = conn.prepareStatement("DELETE FROM subjects WHERE id =?")){
             stmt.setLong(1, id);
             stmt.executeUpdate();
         } catch (SQLException throwables) {
