@@ -9,6 +9,10 @@ public record GradesDto(
         Long gradesId,
         Student student,
         Subject subject,
-        double grade,
+        Double grade,
         String corte) {
+
+    public GradesDto(Long gradesId, Double grade, String corte) {
+        this(gradesId, null, null, grade, corte);
+    }
 }

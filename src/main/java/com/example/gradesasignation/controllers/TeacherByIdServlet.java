@@ -1,14 +1,13 @@
-package com.example.gradesasignation.controllers.ejemplos;
+package com.example.gradesasignation.controllers;
 
 import com.example.gradesasignation.mapper.dtos.StudentDto;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryImpl;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryLogicImpl;
+import com.example.gradesasignation.mapper.dtos.TeacherDto;
 import com.example.gradesasignation.service.StudentService;
+import com.example.gradesasignation.service.TeacherService;
 import com.example.gradesasignation.service.impl.StudentServiceImpl;
-import com.example.gradesasignation.utils.ConexionBD;
+import com.example.gradesasignation.service.impl.TeacherServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,20 +16,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 
-@WebServlet("/byid")
-public class ByIdServlet extends HttpServlet {
-
-
+@WebServlet("/teacherbyid")
+public class TeacherByIdServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
         Connection conn = (Connection) req.getAttribute("conn");
-        StudentService service = new StudentServiceImpl(conn);
+        TeacherService service = new TeacherServiceImpl(conn);
         String idString = req.getParameter("id");
         try {
             Long id = Long.parseLong(idString);
-            StudentDto student = service.byId(id);
-            if (student != null) {
+            TeacherDto teacher = service.byId(id);
+            if (teacher != null) {
                 try (PrintWriter out = resp.getWriter()) {
                     out.println("<!DOCTYPE html>");
                     out.println("<html>");
@@ -39,13 +36,13 @@ public class ByIdServlet extends HttpServlet {
                     out.println(" <title>Consulta por ID</title>");
                     out.println(" </head>");
                     out.println(" <body>");
-                    out.println(" <h1>Estudiante encontrado!</h1>");
-                    out.println(" <h3>Este es el estudiante con id "+id+" :  "+ student + "</h3>");
+                    out.println(" <h1>Docente encontrado!</h1>");
+                    out.println(" <h3>Este es el docente con id "+id+" :  "+ teacher + "</h3>");
                     out.println(" </body>");
                     out.println("</html>");
                 }
             } else {
-                resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No existe un estudiante con este id");
+                resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No existe un docente con este id");
             }
         } catch (NumberFormatException e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "El 'id' ingresado no es un número válido.");

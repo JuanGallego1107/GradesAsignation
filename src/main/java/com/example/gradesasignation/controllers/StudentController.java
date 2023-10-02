@@ -6,6 +6,7 @@ import com.example.gradesasignation.repository.Impl.StudentRepositoryImpl;
 import com.example.gradesasignation.repository.Impl.StudentRepositoryLogicImpl;
 import com.example.gradesasignation.service.StudentService;
 import com.example.gradesasignation.service.impl.StudentServiceImpl;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,13 +16,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "studentController", value = "/student-form")
 public class StudentController extends HttpServlet {
 
     private String message;
 
-    public void init(){
+    public void init() {
         message = "Hello World!";
     }
 
@@ -37,7 +42,7 @@ public class StudentController extends HttpServlet {
         out.println("</body></html>");
     }
 
-    protected  void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         resp.setContentType("text/html");
         Connection conn = (Connection) req.getAttribute("conn");
         StudentServiceImpl service = new StudentServiceImpl(conn);
@@ -45,31 +50,87 @@ public class StudentController extends HttpServlet {
         String email = req.getParameter("email");
         String degree = req.getParameter("degree");
         String semester = req.getParameter("semester");
-        service.update(new StudentDto(2L,name,email,degree,semester));
-        System.out.println(service.studentList());
-
-        try(PrintWriter out = resp.getWriter()) {
-
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("    <head>");
-            out.println("        <meta charset=\"UTF-8\">");
-            out.println("        <title>Resultado form</title>");
-            out.println("    </head>");
-            out.println("    <body>");
-            out.println("        <h1>Resultado form!</h1>");
-
-            out.println("        <ul>");
-            out.println("            <li>Name: " + name + "</li>");
-            out.println("            <li>Email: " + email + "</li>");
-            out.println("            <li>Degree: " + degree + "</li>");
-            out.println("            <li>Semester: " + semester + "</li>");
-            out.println("        </ul>");
-            out.println("    </body>");
-            out.println("</html>");
+        List<String> errores = getErrors(name,semester,email,degree);
+        Map<String,String> errorsmap = getErrors2(name,semester,email,degree);
+        if(errorsmap.isEmpty()) {
+            service.update(StudentDto.builder()
+                    .studentName(name)
+                    .studentEmail(email)
+                    .degree(degree)
+                    .semester(semester)
+                    .build());
+            System.out.println(service.studentList());
+            try (PrintWriter out = resp.getWriter()) {
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println(" <head>");
+                out.println(" <meta charset=\"UTF-8\">");
+                out.println(" <title>Resultado form</title>");
+                out.println(" </head>");
+                out.println(" <body>");
+                out.println(" <h1>Resultado form!</h1>");
+                out.println(" <ul>");
+                out.println(" <li>Name: " + name +
+                        "</li>");
+                out.println(" <li>Email: " + email +
+                        "</li>");
+                out.println(" <li>Semester: " + semester
+                        + "</li>");
+                out.println(" <li>Degree: " + degree
+                        + "</li>");
+                out.println(" </ul>");
+                out.println(" </body>");
+                out.println("</html>");
+            }
+        }
+        else{
+/* errores.forEach(error -> {
+out.println("<li>" + error + "</li>");
+});
+out.println("<p><a href=\"/student.jsp\">volver</a></p>");*/
+            req.setAttribute("errors", errores);
+            req.setAttribute("errorsmap", errorsmap);
+            getServletContext().getRequestDispatcher("/StudentCrud.jsp").forward(req, resp);
         }
     }
-    public void destroy(){
+
+    private Map<String,String> getErrors2(String name, String semester, String
+            email, String degree) {
+        Map<String,String> errors = new HashMap<>();
+        if(name==null ||name.isBlank()){
+            errors.put("name","El nombre es requerido");
+        }
+        if(email==null ||email.isBlank()){
+            errors.put("email","El email es requerido");
+        }
+        if(degree==null ||degree.isBlank()){
+            errors.put("degree","El pregrado es requerido");
+        }
+        if(semester==null ||semester.isBlank()){
+            errors.put("semester","El semester es requerido");
+        }
+        return errors;
+    }
+    private List<String> getErrors(String name, String semester, String email,String degree)
+    {
+        List<String> errors = new ArrayList<String>();
+        if(name==null ||name.isBlank()){
+            errors.add("El nombre es requerido");
+        }
+        if(email==null ||email.isBlank()){
+            errors.add("El email es requerido");
+        }
+        if(degree==null ||degree.isBlank()){
+            errors.add("El pregrado es requerido");
+        }
+        if(semester==null ||semester.isBlank()){
+            errors.add("El semester es requerido");
+        }
+        return errors;
+    }
+
+
+    public void destroy() {
 
     }
 }

@@ -17,7 +17,7 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherRepository repo;
 
     public TeacherServiceImpl(Connection conn){
-        this.repo = new TeacherRepositoryImpl();
+        this.repo = new TeacherRepositoryImpl(conn);
     }
     @Override
     public List<TeacherDto> teacherList() {

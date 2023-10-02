@@ -118,7 +118,7 @@ public class GradesRepositoryImpl implements GradesRepository {
         if (grades.gradesId() != null && grades.gradesId()>0) {
             sql = "UPDATE grades SET grade=?, corte=? WHERE id=?";
         } else {
-            sql = "INSERT INTO grades(grade, corte) VALUES(?,?)";
+            sql = "INSERT INTO grades (grade, corte) VALUES(?,?)";
         }
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDouble(1, grades.grade());

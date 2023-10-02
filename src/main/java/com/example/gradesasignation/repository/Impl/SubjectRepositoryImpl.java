@@ -78,7 +78,7 @@ public class SubjectRepositoryImpl implements SubjectRepository {
         if (subject.subjectId() != null && subject.subjectId()>0) {
             sql = "UPDATE subjects SET name=? WHERE id=?";
         } else {
-            sql = "INSERT INTO subjects(name) VALUES(?)";
+            sql = "INSERT INTO subjects (name) VALUES(?)";
         }
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
 

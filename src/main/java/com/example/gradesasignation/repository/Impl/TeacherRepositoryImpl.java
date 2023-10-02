@@ -15,8 +15,10 @@ import java.util.List;
 
 public class TeacherRepositoryImpl implements TeacherRepository {
 
-    private Connection getConnection() throws SQLException, ClassNotFoundException {
-        return ConexionBD.getInstance();
+    private Connection conn;
+
+    public TeacherRepositoryImpl(Connection conn) {
+        this.conn = conn;
     }
 
 
@@ -32,13 +34,13 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     public List<TeacherDto> teacherList() {
         List<Teacher> teacherList = new ArrayList<>();
 
-        try (Statement statement = getConnection().createStatement();
+        try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * from teachers")) {
             while (resultSet.next()) {
                 Teacher teacher = createTeacher(resultSet);
                 teacherList.add(teacher);
             }
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             throw new ServiceJdbcException(throwables.getMessage(),
                     throwables.getCause());
         }
@@ -48,7 +50,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     @Override
     public TeacherDto byId(Long id) {
         Teacher teacher = null;
-        try (PreparedStatement preparedStatement = getConnection()
+        try (PreparedStatement preparedStatement = conn
                 .prepareStatement("SELECT * FROM teachers WHERE id = ?")) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -56,7 +58,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
                 teacher = createTeacher(resultSet);
             }
             resultSet.close();
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             throw new ServiceJdbcException(throwables.getMessage(),
                     throwables.getCause());
         }
@@ -69,9 +71,9 @@ public class TeacherRepositoryImpl implements TeacherRepository {
         if (teacher.teacherId() != null && teacher.teacherId()>0) {
             sql = "UPDATE teachers SET name=?, email=? WHERE id=?";
         } else {
-            sql = "INSERT INTO students (name, email) VALUES(?,?)";
+            sql = "INSERT INTO teachers (name, email) VALUES(?,?)";
         }
-        try(PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+        try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, teacher.teacherName());
 
             if (teacher.teacherId() != null && teacher.teacherId()>0 ){
@@ -82,7 +84,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
             }
             stmt.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             throw new ServiceJdbcException(throwables.getMessage(),
                     throwables.getCause());
         }
@@ -90,10 +92,10 @@ public class TeacherRepositoryImpl implements TeacherRepository {
 
     @Override
     public void delete(Long id) {
-        try(PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM teachers WHERE id =?")){
+        try(PreparedStatement stmt = conn.prepareStatement("DELETE FROM teachers WHERE id =?")){
             stmt.setLong(1, id);
             stmt.executeUpdate();
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             throw new ServiceJdbcException(throwables.getMessage(),
                     throwables.getCause());
         }
