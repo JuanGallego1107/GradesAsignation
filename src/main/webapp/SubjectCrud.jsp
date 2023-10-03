@@ -24,8 +24,13 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<h3><%= "Formulario Asignaturas" %></h3>
-
+<div class="p-5 bg-dark text-white text-center">
+    <h1>Formulario de asignaturas</h1>
+    <p>Aqui podras ver la informacion sobre las asignaturas</p>
+</div>
+<br/>
+<div class="container p-5 bg-secondary my-5 border">
+<h4>Guardar asignatura</h4>
 <form action="subject-form" method="post">
     <div class="row mb-3">
         <label for="name" class="col-form-label col-sm-2">Name</label>
@@ -43,9 +48,11 @@
         </div>
     </div>
 </form>
+</div>
 <br/>
-<h3><%= "Consultar por ID" %>
-</h3>
+<div class="container p-5 bg-secondary my-5 border">
+<h4><%= "Consultar por ID" %>
+</h4>
 <form action="subjectbyid" method="post">
     <div class="row mb-3">
         <label for="id" class="col-form-label col-sm-2">Id de la asignatura</label>
@@ -57,9 +64,11 @@
         </div>
     </div>
 </form>
+</div>
 <br/>
-<h3><%= "Eliminar por ID" %>
-</h3>
+<div class="container p-5 bg-secondary my-5 border">
+<h4><%= "Eliminar por ID" %>
+</h4>
 <form action="subjectdelete" method="post">
     <div class="row mb-3">
         <label for="idd" class="col-form-label col-sm-2">Id de la asignatura</label>
@@ -71,8 +80,11 @@
         </div>
     </div>
 </form>
+</div>
 <br/>
-<h3><%= "Lista de asignaturas" %></h3>
+<div class="container p-5 bg-secondary my-5 border">
+<h4><%= "Lista de asignaturas" %></h4>
 <a href="subject-form">Vamos a listar asignaturas</a>
+    </div>
 </body>
 </html>

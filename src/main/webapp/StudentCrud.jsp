@@ -24,11 +24,16 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<h3><%= "Formulario estudiantes" %>
-</h3>
+<div class="p-5 bg-primary text-white text-center">
+  <h1>Formulario de estudiantes</h1>
+  <p>Aqui podras ver la informacion sobre los estudiantes</p>
+</div>
+<br/>
+<div class="container p-5 bg-secondary my-5 border">
+<h4>Guardar estudiante</h4>
 <form action="student-form" method="post">
   <div class="row mb-3">
-    <label for="name" class="col-form-label col-sm-2">Name</label>
+    <label for="name" class="col-form-label col-sm-2" >Name</label>
     <div class="col-sm-4"><input type="text" name="name" id="name" class="form-control"
     value="${param.name}"></div>
     <%
@@ -121,9 +126,12 @@ out.println("<small class='alert alert-danger col-sm-4'" +
     </div>
   </div>
 </form>
+</div>
+</div>
 <br/>
-<h3><%= "Consultar por ID" %>
-</h3>
+<div class="container p-5 bg-secondary my-5 border">
+<h4><%= "Consultar por ID" %>
+</h4>
 <form action="byid" method="post">
   <div class="row mb-3">
     <label for="id" class="col-form-label col-sm-2">Id</label>
@@ -135,9 +143,11 @@ out.println("<small class='alert alert-danger col-sm-4'" +
     </div>
   </div>
 </form>
+</div>
 <br/>
-<h3><%= "Eliminar por ID" %>
-</h3>
+<div class="container p-5 bg-secondary my-5 border">
+<h4><%= "Eliminar por ID" %>
+</h4>
 <form action="studentdelete" method="post">
   <div class="row mb-3">
     <label for="idd" class="col-form-label col-sm-2">Id para eliminar</label>
@@ -149,10 +159,11 @@ out.println("<small class='alert alert-danger col-sm-4'" +
     </div>
   </div>
 </form>
+</div>
 <br/>
-<div>
-  <h3><%= "Lista de estudiantes" %>
-  </h3>
+<div class="container p-5 bg-secondary my-5 border">
+  <h4><%= "Lista de estudiantes" %>
+  </h4>
   <a href="student-form">Vamos a listar estudiantes</a>
 </div>
 </body>

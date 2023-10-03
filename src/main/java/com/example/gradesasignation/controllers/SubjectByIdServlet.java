@@ -27,7 +27,6 @@ public class SubjectByIdServlet extends HttpServlet {
         try {
             Long id = Long.parseLong(idString);
             SubjectDto subject = service.byId(id);
-            if (subject != null) {
                 try (PrintWriter out = resp.getWriter()) {
                     out.println("<!DOCTYPE html>");
                     out.println("<html>");
@@ -41,11 +40,8 @@ public class SubjectByIdServlet extends HttpServlet {
                     out.println(" </body>");
                     out.println("</html>");
                 }
-            } else {
-                resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No existe una asignatura con este id");
-            }
-        } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "El 'id' ingresado no es un número válido.");
+        } catch (Exception e) {
+        resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No existe una asignatura con este id");
         }
     }
 

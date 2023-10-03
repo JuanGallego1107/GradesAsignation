@@ -18,15 +18,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Subject CRUD</title>
+    <title>Grades CRUD</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<h3><%= "Formulario notas" %>
-</h3>
-
+<div class="p-5 bg-dark text-white text-center">
+    <h1>Formulario de notas</h1>
+    <p>Aqui podras ver la informacion sobre las notas</p>
+</div>
+<br/>
+<div class="container p-5 bg-secondary my-5 border">
+<h4>Guardar asignatura</h4>
 <form action="grades-form" method="post">
     <div class="row mb-3">
         <label for="grade" class="col-form-label col-sm-2">Nota</label>
@@ -60,10 +64,13 @@
         <div>
             <input type="submit" value="Actualizar" class="btn btn-primary">
         </div>
+    </div>
 </form>
+</div>
 <br/>
-<h3><%= "Consultar por ID" %>
-</h3>
+<div class="container p-5 bg-secondary my-5 border">
+<h4><%= "Consultar por ID" %>
+</h4>
 <form action="gradesbyid" method="post">
     <div class="row mb-3">
         <label for="id" class="col-form-label col-sm-2">Id</label>
@@ -75,9 +82,11 @@
         </div>
     </div>
 </form>
+</div>
 <br/>
-<h3><%= "Eliminar por ID" %>
-</h3>
+<div class="container p-5 bg-secondary my-5 border">
+<h4><%= "Eliminar por ID" %>
+</h4>
 <form action="deletegrade" method="post">
     <div class="row mb-3">
         <label for="idd" class="col-form-label col-sm-2">Id para eliminar</label>
@@ -89,10 +98,11 @@
         </div>
     </div>
 </form>
+</div>
 <br/>
-<div>
-    <h3><%= "Lista de notas" %>
-    </h3>
+<div class="container p-5 bg-secondary my-5 border">
+    <h4><%= "Lista de notas" %>
+    </h4>
     <a href="grades-form">Vamos a listar notas</a>
 </div>
 </body>

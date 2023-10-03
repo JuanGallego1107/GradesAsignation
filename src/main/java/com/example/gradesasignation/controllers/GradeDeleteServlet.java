@@ -50,7 +50,7 @@ public class GradeDeleteServlet extends HttpServlet {
                 out.println("</html>");
             }
         } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No existe un estudiante con el id ingresado");
+            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No existe una asignacion de notas con el id ingresado");
         }
     }
 }

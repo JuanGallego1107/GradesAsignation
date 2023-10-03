@@ -26,7 +26,6 @@ public class StudentByIdServlet extends HttpServlet {
         try {
             Long id = Long.parseLong(idString);
             StudentDto student = service.byId(id);
-            if (student != null) {
                 try (PrintWriter out = resp.getWriter()) {
                     out.println("<!DOCTYPE html>");
                     out.println("<html>");
@@ -40,11 +39,8 @@ public class StudentByIdServlet extends HttpServlet {
                     out.println(" </body>");
                     out.println("</html>");
                 }
-            } else {
+        } catch (Exception e) {
                 resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No existe un estudiante con este id");
-            }
-        } catch (NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "El 'id' ingresado no es un número válido.");
         }
     }
 
