@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-09-2023 a las 02:27:41
+-- Tiempo de generación: 03-10-2023 a las 16:02:43
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `grades` (
   `id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `subject_id` int(11) NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `subject_id` int(11) DEFAULT NULL,
   `grade` double NOT NULL,
   `corte` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -62,7 +62,12 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`id`, `name`, `email`, `degree`, `semester`) VALUES
 (1, 'Daniela Morales', 'danMi@cue.edu.co', 'Enfermeria', 'IV'),
-(2, 'Tatiana Jaramillo', 'tatiJar@cue.edu.co', 'Derecho', 'VII');
+(2, 'Camilo Pardo', 'camP21@cue.edu.co', 'Enfermeria', 'VIII'),
+(11, 'Santiago Sanchez', 'jjgale@gmail.com', 'Derecho', 'V'),
+(12, 'Nestor Garcia', 'nesGar34@cue.edu.co', 'Enfermeria', 'VI'),
+(16, 'Bayron Deossa', 'bayRs23271@cue.edu.co', 'Ingenieria Civil', 'IX'),
+(17, 'Santiago Silva', 'santsil76@cue.edu.co', 'Enfermeria', 'IV'),
+(18, 'Arle Morales', 'armora3265@cue.edu.co', 'Ingenieria Civil', 'III');
 
 -- --------------------------------------------------------
 
@@ -73,7 +78,7 @@ INSERT INTO `students` (`id`, `name`, `email`, `degree`, `semester`) VALUES
 CREATE TABLE `subjects` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `teacher_id` int(11) NOT NULL
+  `teacher_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -82,7 +87,9 @@ CREATE TABLE `subjects` (
 
 INSERT INTO `subjects` (`id`, `name`, `teacher_id`) VALUES
 (1, 'Programacion II', 1),
-(2, 'Ecuaciones', 2);
+(2, 'Formulacion de proyectos', 2),
+(5, 'Metodologia de desarrollo', 3),
+(6, 'Estadistica I', 5);
 
 -- --------------------------------------------------------
 
@@ -101,8 +108,10 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `name`, `email`) VALUES
-(1, 'Rodrigo Salazar', 'rodSala21@cue.edu.co'),
-(2, 'Victor Moreno', 'visMr324@cue.edu.co');
+(1, 'Santiago Cardona', 'sancar34@cue.edu.co'),
+(2, 'Victor Moreno', 'visMr324@cue.edu.co'),
+(4, 'Ricardo Arjona', 'ricarj56@cue.edu.co'),
+(5, 'Hernan Lopez', 'hernlop876@cue.edu.co');
 
 --
 -- Índices para tablas volcadas
@@ -140,25 +149,25 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT de la tabla `grades`
 --
 ALTER TABLE `grades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
