@@ -122,12 +122,10 @@ public class GradesRepositoryImpl implements GradesRepository {
         }
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setDouble(1, grades.grade());
+            stmt.setString(2, grades.corte());
 
             if (grades.gradesId() != null && grades.gradesId()>0) {
-                stmt.setString(2, grades.corte());
                 stmt.setLong(3, grades.gradesId());
-            } else{
-                stmt.setString(2, grades.corte());
             }
 
         } catch (SQLException e) {

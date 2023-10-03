@@ -81,12 +81,10 @@ public class SubjectRepositoryImpl implements SubjectRepository {
             sql = "INSERT INTO subjects (name) VALUES(?)";
         }
         try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, subject.subjectName());
 
             if (subject.subjectId() != null && subject.subjectId()>0) {
-                stmt.setString(1, subject.subjectName());
                 stmt.setLong(2, subject.subjectId());
-            } else{
-                stmt.setString(1, subject.subjectName());
             }
             stmt.executeUpdate();
 
