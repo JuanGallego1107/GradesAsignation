@@ -3,22 +3,17 @@ package com.example.gradesasignation.service.impl;
 
 
 import com.example.gradesasignation.mapper.dtos.SubjectDto;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryImpl;
-import com.example.gradesasignation.repository.Impl.SubjectRepositoryImpl;
-import com.example.gradesasignation.repository.Impl.SubjectRepositoryLogicImpl;
-import com.example.gradesasignation.repository.Impl.TeacherRepositoryLogicImpl;
 import com.example.gradesasignation.repository.SubjectRepository;
 import com.example.gradesasignation.service.SubjectService;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
-import java.sql.Connection;
 import java.util.List;
 
+@ApplicationScoped
 public class SubjectServiceImpl implements SubjectService {
+    @Inject
     private SubjectRepository repo;
-
-    public SubjectServiceImpl(Connection connection) {
-        this.repo = new SubjectRepositoryImpl(connection);
-    }
 
     @Override
     public List<SubjectDto> subjectList() {

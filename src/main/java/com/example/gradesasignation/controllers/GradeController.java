@@ -1,11 +1,8 @@
 package com.example.gradesasignation.controllers;
 
 import com.example.gradesasignation.mapper.dtos.GradesDto;
-import com.example.gradesasignation.mapper.dtos.StudentDto;
 import com.example.gradesasignation.service.GradesService;
-import com.example.gradesasignation.service.StudentService;
-import com.example.gradesasignation.service.impl.GradesServiceImpl;
-import com.example.gradesasignation.service.impl.StudentServiceImpl;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,11 +18,10 @@ import java.util.Map;
 
 @WebServlet(name = "gradeController", value = "/grades-form")
 public class GradeController extends HttpServlet {
+    @Inject
+    private GradesService service;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-
-        Connection conn = (Connection) request.getAttribute("conn");
-        GradesService service = new GradesServiceImpl(conn);
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("h1>Students</h1>");
@@ -36,9 +31,6 @@ public class GradeController extends HttpServlet {
 
     protected  void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         resp.setContentType("text/html");
-
-        Connection conn = (Connection) req.getAttribute("conn");
-        GradesService service = new GradesServiceImpl(conn);
         String gradeStr = req.getParameter("grade");
         String corte = req.getParameter("corte");
         List<String> errores = getErrors(gradeStr, corte);

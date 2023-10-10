@@ -1,24 +1,19 @@
 package com.example.gradesasignation.service.impl;
 
 
-
 import com.example.gradesasignation.mapper.dtos.GradesDto;
 import com.example.gradesasignation.repository.GradesRepository;
-import com.example.gradesasignation.repository.Impl.GradesRepositoryImpl;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryImpl;
-import com.example.gradesasignation.repository.StudentRepository;
 import com.example.gradesasignation.service.GradesService;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
-import java.sql.Connection;
 import java.util.List;
 
+@ApplicationScoped
 public class GradesServiceImpl implements GradesService {
-
+    @Inject
     private GradesRepository repo;
 
-    public GradesServiceImpl(Connection connection) {
-        this.repo = new GradesRepositoryImpl(connection);
-    }
     @Override
     public List<GradesDto> gradesList() {
         return repo.gradesList();

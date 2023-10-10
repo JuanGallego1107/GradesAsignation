@@ -1,8 +1,7 @@
 package com.example.gradesasignation.controllers;
 
-import com.example.gradesasignation.mapper.dtos.StudentDto;
 import com.example.gradesasignation.service.StudentService;
-import com.example.gradesasignation.service.impl.StudentServiceImpl;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,15 +10,16 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 
 @WebServlet("/studentdelete")
 public class StudentDeleteServlet extends HttpServlet {
+
+    @Inject
+    private StudentService service;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
-        Connection conn = (Connection) req.getAttribute("conn");
-        StudentService service = new StudentServiceImpl(conn);
         String idString = req.getParameter("idd");
         try {
             Long id = Long.parseLong(idString);

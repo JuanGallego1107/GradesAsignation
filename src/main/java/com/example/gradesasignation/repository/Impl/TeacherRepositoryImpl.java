@@ -1,27 +1,24 @@
 package com.example.gradesasignation.repository.Impl;
 
 
-
-import com.example.gradesasignation.exceptions.ServiceJdbcException;
-import com.example.gradesasignation.utils.ConexionBD;
+import com.example.gradesasignation.annotations.MysqlConn;
 import com.example.gradesasignation.domain.models.Teacher;
+import com.example.gradesasignation.exceptions.ServiceJdbcException;
 import com.example.gradesasignation.mapper.dtos.TeacherDto;
 import com.example.gradesasignation.mapper.mappers.TeacherMapper;
 import com.example.gradesasignation.repository.TeacherRepository;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class TeacherRepositoryImpl implements TeacherRepository {
-
+    @Inject
+    @MysqlConn
     private Connection conn;
-
-    public TeacherRepositoryImpl(Connection conn) {
-        this.conn = conn;
-    }
-
-
 
     private Teacher createTeacher(ResultSet rs) throws SQLException {
         Teacher teacher = new Teacher();

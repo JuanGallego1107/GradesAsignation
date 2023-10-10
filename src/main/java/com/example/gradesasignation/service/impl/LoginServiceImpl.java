@@ -1,12 +1,16 @@
 package com.example.gradesasignation.service.impl;
 
+import com.example.gradesasignation.annotations.Login;
 import com.example.gradesasignation.service.LoginService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Arrays;
 import java.util.Optional;
 
+@ApplicationScoped
+@Login
 public class LoginServiceImpl implements LoginService {
     @Override
     public Optional<String> getUsername(HttpServletRequest req) {

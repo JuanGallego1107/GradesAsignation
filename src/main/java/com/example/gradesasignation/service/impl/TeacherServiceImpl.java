@@ -3,22 +3,18 @@ package com.example.gradesasignation.service.impl;
 
 
 import com.example.gradesasignation.mapper.dtos.TeacherDto;
-import com.example.gradesasignation.repository.Impl.TeacherRepositoryImpl;
-import com.example.gradesasignation.repository.Impl.TeacherRepositoryLogicImpl;
 import com.example.gradesasignation.repository.TeacherRepository;
 import com.example.gradesasignation.service.TeacherService;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
+@ApplicationScoped
 public class TeacherServiceImpl implements TeacherService {
-
+    @Inject
     private TeacherRepository repo;
 
-    public TeacherServiceImpl(Connection conn){
-        this.repo = new TeacherRepositoryImpl(conn);
-    }
     @Override
     public List<TeacherDto> teacherList() {
         return repo.teacherList();

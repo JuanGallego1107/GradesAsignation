@@ -1,4 +1,4 @@
-package com.example.gradesasignation.repository.Impl;
+/*package com.example.gradesasignation.repository.logic;
 
 import com.example.gradesasignation.domain.models.Teacher;
 import com.example.gradesasignation.exceptions.UniversityException;
@@ -45,3 +45,4 @@ public class TeacherRepositoryLogicImpl implements TeacherRepository {
         teachers.removeIf(e->e.getId().equals(id));
     }
 }
+*/

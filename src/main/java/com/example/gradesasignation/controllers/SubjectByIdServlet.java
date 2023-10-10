@@ -1,11 +1,8 @@
 package com.example.gradesasignation.controllers;
 
 import com.example.gradesasignation.mapper.dtos.SubjectDto;
-import com.example.gradesasignation.mapper.dtos.TeacherDto;
 import com.example.gradesasignation.service.SubjectService;
-import com.example.gradesasignation.service.TeacherService;
-import com.example.gradesasignation.service.impl.SubjectServiceImpl;
-import com.example.gradesasignation.service.impl.TeacherServiceImpl;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,15 +11,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 
 @WebServlet("/subjectbyid")
 public class SubjectByIdServlet extends HttpServlet {
+    @Inject
+    private SubjectService service;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
-        Connection conn = (Connection) req.getAttribute("conn");
-        SubjectService service = new SubjectServiceImpl(conn);
         String idString = req.getParameter("id");
         try {
             Long id = Long.parseLong(idString);

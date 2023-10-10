@@ -1,12 +1,9 @@
 package com.example.gradesasignation.controllers;
 
-import com.example.gradesasignation.domain.models.Student;
 import com.example.gradesasignation.mapper.dtos.StudentDto;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryImpl;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryLogicImpl;
 import com.example.gradesasignation.service.StudentService;
-import com.example.gradesasignation.service.impl.StudentServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,11 +13,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.List;
 
 @WebServlet(value="/student.json")
 public class StudentJson extends HttpServlet {
+
+    @Inject
+    private StudentService service;
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws
             ServletException, IOException {
         ServletInputStream jsonStream = req.getInputStream();
@@ -50,8 +49,6 @@ public class StudentJson extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
-        Connection conn = (Connection) req.getAttribute("conn");
-        StudentService service = new StudentServiceImpl(conn);
         List<StudentDto> students = service.studentList();
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(students);

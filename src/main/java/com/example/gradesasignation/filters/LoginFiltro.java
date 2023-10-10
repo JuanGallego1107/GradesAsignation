@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import java.util.logging.LogRecord;
 
-//@WebFilter({"/student.jsp"})
+//@WebFilter({"/StudentCrud.jsp","/TeacherCrud.jsp","/SubjectCrud.jsp","/GradesCrud.jsp"})
 public class LoginFiltro implements Filter {
 
     @Override

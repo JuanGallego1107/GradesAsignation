@@ -1,11 +1,8 @@
 package com.example.gradesasignation.controllers;
 
-import com.example.gradesasignation.domain.models.Student;
 import com.example.gradesasignation.mapper.dtos.StudentDto;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryImpl;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryLogicImpl;
 import com.example.gradesasignation.service.StudentService;
-import com.example.gradesasignation.service.impl.StudentServiceImpl;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,27 +11,18 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "studentController", value = "/student-form")
+@WebServlet(name = "studentController", value = "/private/student-form")
 public class StudentController extends HttpServlet {
-
-    private String message;
-
-    public void init() {
-        message = "Hello World!";
-    }
+    @Inject
+    private StudentService service;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-
-        Connection conn = (Connection) request.getAttribute("conn");
-        StudentService service = new StudentServiceImpl(conn);
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("h1>Students</h1>");
@@ -44,8 +32,6 @@ public class StudentController extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         resp.setContentType("text/html");
-        Connection conn = (Connection) req.getAttribute("conn");
-        StudentServiceImpl service = new StudentServiceImpl(conn);
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String degree = req.getParameter("degree");

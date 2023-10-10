@@ -2,23 +2,25 @@ package com.example.gradesasignation.repository.Impl;
 
 
 
+import com.example.gradesasignation.annotations.MysqlConn;
 import com.example.gradesasignation.exceptions.ServiceJdbcException;
 import com.example.gradesasignation.domain.models.Student;
 import com.example.gradesasignation.mapper.dtos.StudentDto;
 import com.example.gradesasignation.mapper.mappers.StudentMapper;
 import com.example.gradesasignation.repository.StudentRepository;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class StudentRepositoryImpl implements StudentRepository {
 
+    @Inject
+    @MysqlConn
     private Connection conn;
-
-    public StudentRepositoryImpl(Connection conn) {
-        this.conn = conn;
-    }
 
     private Student createStudent(ResultSet rs) throws SQLException {
         Student student = new Student();

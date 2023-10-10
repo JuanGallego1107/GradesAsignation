@@ -1,11 +1,13 @@
 package com.example.gradesasignation.service.impl;
 
 import com.example.gradesasignation.service.LoginService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.Optional;
 
+@ApplicationScoped
 public class LoginServiceSessionImpl implements LoginService {
 
     @Override

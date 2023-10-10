@@ -1,7 +1,8 @@
 package com.example.gradesasignation.controllers.ejemplos;
 
+import com.example.gradesasignation.annotations.Login;
 import com.example.gradesasignation.service.LoginService;
-import com.example.gradesasignation.service.impl.LoginServiceImpl;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -17,6 +18,10 @@ import java.util.Optional;
 public class LoginServlet extends HttpServlet {
     final static String USERNAME = "admin";
     final static String PASSWORD = "12345";
+
+    @Inject
+    @Login
+    private LoginService auth;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
@@ -50,7 +55,6 @@ public class LoginServlet extends HttpServlet {
             ServletException, IOException {
         String mensajeRequest = (String) req.getAttribute("mensaje");
         String mensajeApp = (String) getServletContext().getAttribute("mensaje");
-        LoginService auth = new LoginServiceImpl();
         Optional<String> cookieOptional = auth.getUsername(req);
         if (cookieOptional.isPresent()) {
             resp.setContentType("text/html;charset=UTF-8");

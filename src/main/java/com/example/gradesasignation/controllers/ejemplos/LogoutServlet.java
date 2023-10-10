@@ -1,7 +1,8 @@
 package com.example.gradesasignation.controllers.ejemplos;
 
+import com.example.gradesasignation.annotations.Login;
 import com.example.gradesasignation.service.LoginService;
-import com.example.gradesasignation.service.impl.LoginServiceImpl;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -14,10 +15,12 @@ import java.util.Optional;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
+    @Inject
+    @Login
+    LoginService auth;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
-        LoginService auth = new LoginServiceImpl();
         Optional<String> username = auth.getUsername(req);
         if (username.isPresent()) {
             Cookie usernameCookie = new Cookie("username", "");

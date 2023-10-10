@@ -1,6 +1,11 @@
 package com.example.gradesasignation.domain.models;
 
-public class Student {
+import jakarta.enterprise.context.SessionScoped;
+
+import java.io.Serializable;
+
+@SessionScoped
+public class Student implements Serializable {
     private Long id;
     private String name;
     private String email;

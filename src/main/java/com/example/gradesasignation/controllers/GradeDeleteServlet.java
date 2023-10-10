@@ -1,10 +1,7 @@
 package com.example.gradesasignation.controllers;
 
-import com.example.gradesasignation.mapper.dtos.StudentDto;
 import com.example.gradesasignation.service.GradesService;
-import com.example.gradesasignation.service.StudentService;
-import com.example.gradesasignation.service.impl.GradesServiceImpl;
-import com.example.gradesasignation.service.impl.StudentServiceImpl;
+import jakarta.inject.Inject;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,15 +9,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 
 @WebServlet(name = "gradeController", value = "/deletegrade")
 public class GradeDeleteServlet extends HttpServlet {
+    @Inject
+    private GradesService service;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-        Connection conn = (Connection) request.getAttribute("conn");
-        GradesService service = new GradesServiceImpl(conn);
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("h1>Nota eliminada</h1>");
@@ -30,8 +26,6 @@ public class GradeDeleteServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
-        Connection conn = (Connection) req.getAttribute("conn");
-        GradesServiceImpl service = new GradesServiceImpl(conn);
         String idString = req.getParameter("idd");
         try {
             Long id = Long.parseLong(idString);

@@ -1,14 +1,10 @@
 package com.example.gradesasignation.controllers.ejemplos;
 
 import com.example.gradesasignation.mapper.dtos.StudentDto;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryImpl;
-import com.example.gradesasignation.repository.Impl.StudentRepositoryLogicImpl;
 import com.example.gradesasignation.service.LoginService;
 import com.example.gradesasignation.service.StudentService;
-import com.example.gradesasignation.service.TeacherService;
 import com.example.gradesasignation.service.impl.LoginServiceImpl;
-import com.example.gradesasignation.service.impl.StudentServiceImpl;
-import com.example.gradesasignation.service.impl.TeacherServiceImpl;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -18,21 +14,17 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
 @WebServlet({"/loginlist","/loginlist.html"})
 public class ListStudentsServlet extends HttpServlet {
 
-    private String message;
-
-    public void init(){
-        message = "Hello World!";
-    }
-
     final static String USERNAME = "admin";
     final static String PASSWORD = "12345";
+
+    @Inject
+    private StudentService service;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
@@ -64,8 +56,6 @@ public class ListStudentsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response) throws
             ServletException, IOException {
-        Connection conn = (Connection) req.getAttribute("conn");
-        StudentService service = new StudentServiceImpl(conn);
         LoginService auth = new LoginServiceImpl();
         Optional<String> cookieOptional = auth.getUsername(req);
         List<StudentDto> students = service.studentList();

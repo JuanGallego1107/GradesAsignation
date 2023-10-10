@@ -1,4 +1,4 @@
-package com.example.gradesasignation.repository.Impl;
+/*package com.example.gradesasignation.repository.logic;
 
 import com.example.gradesasignation.domain.models.Subject;
 import com.example.gradesasignation.domain.models.Teacher;
@@ -49,3 +49,4 @@ public class SubjectRepositoryLogicImpl implements SubjectRepository {
         subjects.removeIf(e -> e.getId().equals(id));
     }
 }
+*/

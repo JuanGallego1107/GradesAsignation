@@ -31,7 +31,7 @@
 <br/>
 <div class="container p-5 bg-secondary my-5 border">
 <h4>Guardar estudiante</h4>
-<form action="student-form" method="post">
+<form action="/private/student-form" method="post">
   <div class="row mb-3">
     <label for="name" class="col-form-label col-sm-2" >Name</label>
     <div class="col-sm-4"><input type="text" name="name" id="name" class="form-control"
