@@ -1,0 +1,19 @@
+Investigue para que sirven estos metodos:
+pool.setInitialSize(3);
+pool.setMinIdle(3);
+pool.setMaxIdle(8);
+Describirlo en un archivo txt en la carpeta resources del proyecto:
+
+pool.setInitialSize(3)
+- Este metodo especifca cuantas conexiones se deben crear inicialmente al inicar
+la aplicacion para que esten disponibles.
+
+pool.setMinIdle(3);
+- Este método se utiliza para establecer la cantidad mínima de conexiones
+  que el pool debe mantener disponibles mientras la apliacacion este activa.
+
+pool.setMaxIdle(8);
+- Este método se utiliza para establecer la cantidad máxima de conexiones
+inactivas que el pool debe mantener. Cuando el número de conexiones inactivas
+en el pool supera el límite, algunas conexiones inactivas pueden ser cerradas
+para liberar recursos.
